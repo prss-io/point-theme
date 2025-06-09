@@ -23,8 +23,14 @@
     display: none;
   }
 }
+
+.page header.page-header .container > nav {
+  z-index: 999;
+  position: relative;
+}
+
 .page header.page-header .header-nav .logo {
-  color: #000;
+  color: var(--primary);
   font-size: 25px;
   font-weight: 600;
 }
@@ -90,6 +96,11 @@
   flex: 1;
   background: unset;
   background-color: unset;
+}
+
+.page header.page-header .header-nav ul,
+.page header.page-header .header-nav li {
+  margin-bottom: 0 !important;
 }
 
 @media (max-width: 991.98px) {

@@ -1,9 +1,7 @@
 .page .page-menu.mode-prev-next {
-  border-top: 1px dashed #e6e6e6;
   list-style: none;
   padding: 0;
   margin: 0;
-  padding-top: 20px;
   overflow: hidden;
 }
 .page .page-menu.mode-prev-next .menu-item-next,
@@ -25,17 +23,17 @@
 }
 .page .page-menu.mode-prev-next .menu-item-next a .menu-item-title,
 .page .page-menu.mode-prev-next .menu-item-prev a .menu-item-title {
-  color: black;
+  color: var(--primary);
 }
 .page .page-menu.mode-prev-next .menu-item-next a .menu-item-label,
 .page .page-menu.mode-prev-next .menu-item-prev a .menu-item-label {
-  color: #007bff;
+  color: var(--accent-foreground);
   font-size: 18px;
   font-weight: 500;
 }
 .page .page-menu.mode-prev-next .menu-item-next a:hover,
 .page .page-menu.mode-prev-next .menu-item-prev a:hover {
-  border: 1px solid #007bff;
+  border: 1px solid var(--accent-foreground);
 }
 .page .page-menu.mode-prev-next .menu-item-next a:active,
 .page .page-menu.mode-prev-next .menu-item-prev a:active {

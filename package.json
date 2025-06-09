@@ -1,6 +1,6 @@
 {
   "name": "@hodgef/point-theme",
-  "version": "1.0.18",
+  "version": "1.0.0",
   "description": "Point Theme for PRSS",
   "main": "build/index.js",
   "scripts": {

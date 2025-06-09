@@ -14,6 +14,14 @@ interface IVars {
     disableThemeSwitcher?: string;
 
     /**
+     * Hero
+     */
+    heroTitle?: string;
+    heroMessage?: string;
+    heroImageUrl?: string;
+    heroClass?: string;
+
+    /**
      * Links
      */
     links: ILink[];

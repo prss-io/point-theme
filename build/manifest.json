@@ -1,9 +1,9 @@
 {
   "name": "@hodgef/point-theme",
   "title": "Point",
-  "version": "1.0.18",
+  "version": "1.0.0",
   "author": "Francisco Hodge",
-  "homepage": "https://github.com/prss-io/point-theme",
+  "description": "Point Theme for PRSS",
   "license": "MIT",
   "type": "blog",
   "parser": "react",
@@ -23,6 +23,22 @@
     "featuredImageAlt": {
       "type": "image",
       "description": "Path for the post's alt featured image"
+    },
+    "heroClass": {
+      "type": "string",
+      "description": "Class for the hero section"
+    },
+    "heroTitle": {
+      "type": "string",
+      "description": "Hero title for the page"
+    },
+    "heroMessage": {
+      "type": "string",
+      "description": "Message that appears under the hero title"
+    },
+    "heroImageUrl": {
+      "type": "image",
+      "description": "Url for the featured image"
     },
     "faviconImageUrl": {
       "type": "image",
@@ -95,13 +111,11 @@
   },
   "templates": [
     "blog",
-    "blog2",
     "card",
     "docs",
     "home",
     "page",
-    "post",
-    "post2"
+    "post"
   ],
   "isSSR": true,
   "combinedCSS": true,

@@ -1,5 +1,3 @@
-import "./index.css";
-
 import React from "react";
 import * as PRSS from "prss";
 import Header from "@/components/Header";
@@ -15,7 +13,7 @@ const Post = data => {
   const sidebarHtml = PRSS.getProp("sidebarHtml");
 
   return (
-    <Page className="page-post">
+    <Page className="page-post page-single">
       <Header />
       <main className="pb-6">
         <section className="post-content flex justify-center">
@@ -24,7 +22,7 @@ const Post = data => {
               <div className={cx("w-full", {
                 "lg:w-[70%]": sidebarHtml
               })}>
-                <div className="post-inner-content prose dark:prose-invert max-w-none pb-8" dangerouslySetInnerHTML={{
+                <div className="col post-inner-content page__content prose dark:prose-invert max-w-none pb-8" dangerouslySetInnerHTML={{
                     __html: content
                 }}></div>
               </div>

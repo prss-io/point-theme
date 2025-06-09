@@ -1,5 +1,3 @@
-import "./index.css";
-
 import React, { useState } from "react";
 import * as PRSS from "prss";
 import cx from "classnames";
@@ -40,7 +38,7 @@ const Docs = data => {
     const isActive = node.key === postId;
     
     return (
-      <li key={node.key} className={cx("mb-1", { "active": isActive })}>
+      <li key={node.key} className={cx({ "active": isActive })}>
         <a 
           href={post?.url}
           className={cx(
@@ -54,13 +52,13 @@ const Docs = data => {
         </a>
         
         {hasChildren && (
-          <ul className="pl-2 mt-1 ml-3 space-y-1 border-l border-border">
+          <ul className="ml-0 pl-0">
             {nodeChildren.map(childNode => {
               const childPost = PRSS.getItem(childNode.key);
               const isChildActive = childNode.key === postId;
               
               return (
-                <li key={childNode.key} className={isChildActive ? "active" : ""}>
+                <li key={childNode.key} className={cx("mt-2", isChildActive ? "active" : "")}>
                   <a 
                     href={childPost?.url}
                     className={cx(
@@ -112,24 +110,14 @@ const Docs = data => {
   return (
     <Page className="page-docs">
       <Header />
-      <main className="pb-6">
+      <main className="pb-6 col">
         <section className="flex justify-center mx-auto flex max-w-screen-xl flex-col gap-20 lg:flex-row mt-6">
           <div className="relative mx-auto flex max-w-screen-xl w-full flex-col">
-            {/* Featured Image Banner */}
-            {featuredImageUrl && (
-              <div 
-                className="w-full h-48 bg-cover bg-center rounded-b-lg overflow-hidden"
-                style={{
-                  backgroundImage: `url(${featuredImageUrl})`
-                }}
-              />
-            )}
-
             {/* Title Section */}
-            <div className="mb-8">
+            <div className="">
               <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                 <div className="flex-1">
-                  <h1 className="text-3xl md:text-4xl font-bold lg:text-5xl mb-6">{postTitle}</h1>
+                  <h1 className="text-3xl md:text-4xl font-bold lg:text-5xl mb-0">{postTitle}</h1>
                 </div>
                 {PRSS.getProp("vars")?.asideHtml && (
                   <div className="lg:w-1/3">
@@ -139,11 +127,23 @@ const Docs = data => {
               </div>
             </div>
 
+            {/* Featured Image Banner */}
+            {featuredImageUrl && (
+              <div className="hero__left">
+                <div 
+                  className="hero__image my-4 mb-10 w-full h-48 bg-cover bg-center overflow-hidden"
+                  style={{
+                    backgroundImage: `url(${featuredImageUrl})`
+                  }}
+                />
+              </div>
+            )}
+
             {/* Content Layout */}
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Documentation Sidebar */}
               {isset(sidebarMenu) && (
-                <aside className="w-full lg:w-1/4 shrink-0">
+                <aside className="sidebar-menu w-full lg:w-1/4 shrink-0">
                   {/* Mobile Menu Toggle */}
                   <div className="lg:hidden mb-4">
                     <Button 
@@ -189,7 +189,7 @@ const Docs = data => {
 
                   {/* Main Content */}
                   <div className="post-content prose dark:prose-invert max-w-none">
-                    <div className="post-inner-content" dangerouslySetInnerHTML={{ __html: content }} />
+                    <div className="col post-inner-content page__content" dangerouslySetInnerHTML={{ __html: content }} />
                   </div>
 
                   {/* Footer Call to Action */}

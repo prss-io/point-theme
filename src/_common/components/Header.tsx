@@ -91,17 +91,17 @@ const Header = () => {
             {/* Logo */}
             <a href={props.rootPath} className="flex items-center gap-2">
               {logoImageUrl ? <img src={logoImageUrl} className="max-h-8" alt={title} /> : (
-                <span className="text-lg font-semibold tracking-tighter">
+                <span className="logo__link">
                   {title}
                 </span>
               )}
             </a>
             <div className="flex items-center header-nav">
               <NavigationMenu>
-                <NavigationMenuList>
+                <NavigationMenuList className="mb-0">
                   <Menu
                     name="header"
-                    ulClassName="navbar-nav"
+                    ulClassName="navbar-nav mb-0"
                     renderItem={renderMenuItem}
                   />
                 </NavigationMenuList>

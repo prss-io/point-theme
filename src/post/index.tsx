@@ -1,8 +1,6 @@
-import "./index.css";
-
 import React from "react";
 import * as PRSS from "prss";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Page from "@/components/Page";
@@ -26,19 +24,38 @@ const Post = data => {
   return (
     <Page className="page-post">
       <Header />
-      <main className="pb-6">
+      <main className="pb-6 col">
         <section className="flex justify-center">
           <div className="relative mx-auto flex max-w-screen-xl flex-col gap-2 mt-6 w-full">
+
             {/* Header - Full Width */}
             <header className="flex flex-col gap-5 py-6">
-              <h1 className="text-3xl md:text-4xl font-bold lg:text-5xl">{postTitle}</h1>
-              
+              <h1 className="text-3xl md:text-4xl font-bold lg:text-5xl post__title mb-0" style={{ marginBottom: 0 }}>{postTitle}</h1>
               {createdAt && (
-                <div className="flex items-center text-muted-foreground">
-                  <Clock className="mr-2 h-4 w-4" />
-                  <span>{PRSS.formattedDate(createdAt)}</span>
+                <div className="mb-2 flex items-center space-x-2 md:mb-4 text-sm">
+                  {PRSS.formattedDate(createdAt)}
                 </div>
               )}
+
+              {featuredImageUrl && (
+              <div className="mb-8 relative max-h-[600px]">
+                <img 
+                  src={featuredImageUrl} 
+                  alt={featuredImageAlt || postTitle} 
+                  className="w-full h-full object-cover max-h-[600px]"
+                />
+                {featuredImageAuthor && featuredImageAuthorLink && (
+                  <div className="text-xs justify-end flex mt-1">
+                    <span>
+                      Photo by{" "}
+                      <a href={featuredImageAuthorLink} target="_blank" rel="noreferrer" className="hover:underline">
+                        {featuredImageAuthor} via Pexels
+                      </a>
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
               
               {PRSS.getProp("vars")?.asideHtml && (
                 <div className="mt-4">
@@ -49,29 +66,9 @@ const Post = data => {
             
             {/* Post Content - Full Width */}
             <div className="w-full">
-              {featuredImageUrl && (
-                <div className="mb-8 rounded-lg overflow-hidden relative h-[300px]">
-                  <img 
-                    src={featuredImageUrl} 
-                    alt={featuredImageAlt || postTitle} 
-                    className="w-full h-full object-cover"
-                  />
-                  {featuredImageAuthor && featuredImageAuthorLink && (
-                    <div className="absolute bottom-0 right-0 bg-black/60 text-white text-xs py-1 px-2 rounded-tl">
-                      <span>
-                        Photo by{" "}
-                        <a href={featuredImageAuthorLink} target="_blank" rel="noreferrer" className="text-white hover:underline">
-                          {featuredImageAuthor} via Pexels
-                        </a>
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
-
                 <div className="post-content prose dark:prose-invert max-w-none pb-12 border-b">
                   <div
-                    className="post-inner-content"
+                    className="post-inner-content page__content"
                     dangerouslySetInnerHTML={{
                       __html: content
                     }}

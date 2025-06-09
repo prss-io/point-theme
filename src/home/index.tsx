@@ -1,8 +1,6 @@
-import "./index.css";
-
 import React from "react";
-import { ArrowRight, FileText } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { ArrowRight } from "lucide-react";
+import cx from "classnames";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Page from "@/components/Page";
@@ -12,11 +10,11 @@ const Home = data => {
   PRSS.init(data);
   (window as any).PRSS = PRSS;
 
-  const { blogPosts } = PRSS.getProp("vars") as any;
+  const { blogPosts, featuredImageUrl, featuredImageAlt, heroTitle, heroMessage, heroClass, heroImageUrl } = PRSS.getProp("vars") as any;
   const { content } = PRSS.getProp("item");
   const items = PRSS.getItems("post", true, blogPosts);
   const { rootPath } = PRSS.getAllProps();
-
+  
   const posts = items.slice(0, 6).map((post) => {
     return {
       id: post.uuid,
@@ -37,51 +35,69 @@ const Home = data => {
       <main className="pb-6">
         <section className="flex justify-center">
           <div className="relative mx-auto flex max-w-screen-xl flex-col gap-12 mt-6 w-full">
-            {/* Hero Section */}
-            <div className="w-full text-lg md:text-xl opacity-90 max-w-2xl">
-                <section className="post-content">
-                  <div className="post-inner-content" dangerouslySetInnerHTML={{ __html: content }} />
-                </section>
+            <div class="container">
+              <div class="row">
+                <div class={cx("col", "col-12", heroClass)}>
+                  <div class="hero__inner">
+                    {(heroImageUrl || featuredImageUrl) && (
+                      <div class="hero__left">
+                        <div class="hero__image">
+                          <img src={(heroImageUrl || featuredImageUrl)} alt={featuredImageAlt} />
+                        </div>
+                      </div>
+                    )}
+
+                    <div class="hero__right">
+                      {heroTitle && (
+                        <h1 class="hero__title">{heroTitle}</h1>
+                      )}
+
+                      {heroMessage && (
+                        <p class="hero__description">{heroMessage}</p>
+                      )}
+
+                      {content ? (
+                        <div className="post-inner-content page__content" dangerouslySetInnerHTML={{ __html: content }} />
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Articles Section */}
             <div className="w-full">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold">Latest Articles</h2>
-                <a href={`${rootPath}blog`} className="text-primary flex items-center gap-1 hover:underline">
-                  View all <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              <div className="row animate">
                 {posts.map((post) => (
-                  <a key={post.id} href={post.url} className="block group">
-                    <Card className="overflow-hidden flex flex-col h-full hover:shadow-md transition-shadow border border-border group-hover:border-primary/20">
-                      {post.image ? (
-                        <div className="relative h-48 overflow-hidden">
-                          <img src={post.image} alt={post.title} className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
-                        </div>
-                      ) : (
-                        <div className="flex items-center justify-center h-48 bg-muted text-muted-foreground">
-                          <FileText className="h-12 w-12" />
-                        </div>
-                      )}
+                  <a key={post.id} href={post.url} className="article col col-8 push-2 col-d-12 push-d-0">
+                    <div className="article__content">
                       <div className="p-5 flex flex-col flex-grow">
-                        <h3 className="text-xl font-semibold mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                          {post.title}
-                        </h3>
-                        <p className="text-muted-foreground mb-8 mt-2 line-clamp-3">{post.summary}</p>
-                        <div className="mt-auto flex items-center justify-between">
-                          <span className="text-sm text-muted-foreground">{post.published}</span>
-                          <span className="text-primary flex items-center gap-1 text-sm">
-                            Read more <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
-                          </span>
+                        <div className="mt-auto flex items-center justify-between article__meta">
+                          <span className="text-sm text-muted-foreground text-bold">{post.published}</span>
                         </div>
+                        <h3 className="article__title d-inline">
+                          {post.title} <ArrowRight className="right-arr d-inline h-8 w-8 transition-transform group-hover:translate-x-1" />
+                        </h3>
+                        <p className="article__excerpt line-clamp-3">{post.summary}</p>
                       </div>
-                    </Card>
+                    </div>
                   </a>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+        <section className="flex justify-center mx-auto flex max-w-screen-xl flex-col gap-20 lg:flex-row mt-6">
+          <div className="container flex flex-col">
+            {/* Blog link with arrow */}
+            <div className="article col col-8 push-2 col-d-12 push-d-0">
+              <a 
+                href={`${rootPath}blog`} 
+                className="group inline-flex items-center gap-2 text-primary font-medium hover:underline"
+              >
+                View all
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </a>
             </div>
           </div>
         </section>
