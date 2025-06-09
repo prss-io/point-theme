@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import cx from "classnames";
 import Header from "@/components/Header";
@@ -109,14 +109,14 @@ const Blog = data => {
             </div>
 
             <nav aria-label="Page navigation" className="mt-12 flex items-center justify-center">
-              <ul className="pagination flex justify-content-center rounded-sm overflow-hidden">
+              <ul className="pagination flex justify-content-center overflow-hidden">
                 {currentPage > 1 && (
                   <li className="page-item">
                     <a
                       className="page-link"
                       href={`${adjustedRootPath}blog/${currentPage - 1 === 1 ? "" : currentPage - 1}`}
                     >
-                        Previous
+                        <ArrowLeft className="right-arr d-inline h-6 w-6 transition-transform group-hover:translate-x-1" />
                     </a>
                   </li>
                 )}
@@ -140,7 +140,7 @@ const Blog = data => {
                       className="page-link"
                       href={`${adjustedRootPath}blog/${currentPage + 1}`}
                     >
-                        Next
+                        <ArrowRight className="right-arr d-inline h-6 w-6 transition-transform group-hover:translate-x-1" />
                     </a>
                   </li>
                 )}

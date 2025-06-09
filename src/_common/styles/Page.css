@@ -3673,6 +3673,45 @@ table td {
   border-bottom: 1px solid var(--border-color);
 }
 
+.page.page-blog .pagination {
+  display: flex;
+  align-items: center;
+}
+
+.page.page-blog .pagination a.page-link {
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: unset;
+  border: unset;
+}
+
+.page.page-blog .pagination a.page-link:hover {
+  z-index: 2;
+  text-decoration: none;
+  background-color: unset;
+  border-color: unset;
+  opacity: 0.5;
+}
+
+.page.page-blog .pagination a.page-link.active {
+  position: relative;
+}
+
+.page.page-blog .pagination a.page-link.active::after {
+  background-color: var(--foreground);
+  border-radius: 3px;
+  bottom: -1px;
+  content: "";
+  height: 3px;
+  position: absolute;
+  width: 51%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 @media only screen and (max-width: 576px) {
   .post__bottom {
     margin-top: 40px;
