@@ -2328,7 +2328,7 @@ pre {
   color: var(--heading-font-color);
 }
 
-img,.zoom-img-wrap {
+img:not(.prss-footer-image),.zoom-img-wrap:not(.prss-footer-image) {
   max-width: 100%;
   height: 100%;
   vertical-align: middle;
@@ -3466,6 +3466,9 @@ table td {
   display: inline;
   stroke-width: 5px;
   vertical-align: initial;
+  position: absolute;
+  margin-top: 10px;
+  margin-left: 5px;
 }
 
 .article__title:hover {
@@ -3602,6 +3605,10 @@ table td {
 @media only screen and (max-width: 768px) {
   .post-image,.page-image {
     height: 360px;
+  }
+
+  .article__title svg {
+    margin-top: 5px;
   }
 }
 

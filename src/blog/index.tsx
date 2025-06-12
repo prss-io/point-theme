@@ -38,7 +38,7 @@ const Blog = data => {
         <section className="flex justify-center mx-auto flex max-w-screen-xl flex-col gap-20 lg:flex-row mt-6">
           <div className="container flex flex-col">
             <h1 className="mb-6 page__title">Blog</h1>
-            <div className="post-content mb-12 text-lg text-muted-foreground md:text-xl lg:max-w-3xl">
+            <div className="post-content mb-12 text-lg text-muted-foreground md:text-xl">
               <div
                 className="post-inner-content page__content"
                 dangerouslySetInnerHTML={{

@@ -16,6 +16,7 @@ const {
   version,
   name,
   license,
+  homepage,
   description,
   author = "",
 } = getPackageJson();
@@ -68,6 +69,7 @@ const start = async () => {
       title,
       version,
       author: author.replace(/ *\<[^)]*(\)|\>) */g, ""),
+      homepage,
       description,
       license,
       type,

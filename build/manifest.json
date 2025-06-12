@@ -1,8 +1,9 @@
 {
-  "name": "@hodgef/point-theme",
+  "name": "@prss/point-theme",
   "title": "Point",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "author": "Francisco Hodge",
+  "homepage": "https://github.com/prss-io/point-theme",
   "description": "Point Theme for PRSS",
   "license": "MIT",
   "type": "blog",
