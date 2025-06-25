@@ -15,8 +15,16 @@ document.querySelector(".toggle-dark-mode")?.addEventListener("click", function 
 });
 
 // All images under .post-inner-content should have data-action="zoom", unless they have a class of "no-zoom" or data-action="none"
+// Only images with width and height over 500px should be zoomable
 document.querySelectorAll(".post-inner-content img")?.forEach((img) => {
   if (img && !img.classList.contains("no-zoom") && img.getAttribute("data-action") !== "none") {
-    img.setAttribute("data-action", "zoom");
+    // Create a new image element to get actual dimensions
+    const testImg = new Image();
+    testImg.onload = function() {
+      if (testImg.naturalWidth > 500 && testImg.naturalHeight > 500) {
+        img.setAttribute("data-action", "zoom");
+      }
+    };
+    testImg.src = img.getAttribute("src") || "";
   }
 });
