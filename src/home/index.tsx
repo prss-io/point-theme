@@ -4,7 +4,9 @@ import cx from "classnames";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Page from "@/components/Page";
-import * as PRSS from "prss";
+import * as PRSS from "@prss/ui";
+
+import ContentRenderer from "@prss/ui/build/ContentRenderer";
 
 const Home = data => {
   PRSS.init(data);
@@ -35,29 +37,32 @@ const Home = data => {
       <main className="pb-6">
         <section className="flex justify-center">
           <div className="relative mx-auto flex max-w-screen-xl flex-col gap-12 mt-6 w-full">
-            <div class="container">
-              <div class="row">
+            <div className="container">
+              <div className="row">
                 <div class={cx("col", "col-12", heroClass)}>
-                  <div class="hero__inner">
+                  <div className="hero__inner">
                     {(heroImageUrl || featuredImageUrl) && (
-                      <div class="hero__left">
-                        <div class="hero__image">
+                      <div className="hero__left">
+                        <div className="hero__image">
                           <img src={(heroImageUrl || featuredImageUrl)} alt={featuredImageAlt} />
                         </div>
                       </div>
                     )}
 
-                    <div class="hero__right">
+                    <div className="hero__right">
                       {heroTitle && (
-                        <h1 class="hero__title">{heroTitle}</h1>
+                        <h1 className="hero__title">{heroTitle}</h1>
                       )}
 
                       {heroMessage && (
-                        <p class="hero__description">{heroMessage}</p>
+                        <p className="hero__description">{heroMessage}</p>
                       )}
 
                       {content ? (
-                        <div className="post-inner-content page__content" dangerouslySetInnerHTML={{ __html: content }} />
+                        <ContentRenderer 
+                          content={content}
+                          className="post-inner-content page__content"
+                        />
                       ) : null}
                     </div>
                   </div>

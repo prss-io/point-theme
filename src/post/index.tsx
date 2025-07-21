@@ -1,11 +1,13 @@
 import React from "react";
-import * as PRSS from "prss";
+import * as PRSS from "@prss/ui";
 import { ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Page from "@/components/Page";
 import { isset } from "@/lib/utils";
 import Aside from "@/components/Aside";
+
+import ContentRenderer from "@prss/ui/build/ContentRenderer";
 
 const Post = data => {
   PRSS.init(data);
@@ -67,11 +69,9 @@ const Post = data => {
             {/* Post Content - Full Width */}
             <div className="w-full">
                 <div className="post-content prose dark:prose-invert max-w-none pb-12 border-b">
-                  <div
+                  <ContentRenderer 
+                    content={content}
                     className="post-inner-content page__content"
-                    dangerouslySetInnerHTML={{
-                      __html: content
-                    }}
                   />
                 </div>
 

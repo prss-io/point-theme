@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as PRSS from "prss";
+import * as PRSS from "@prss/ui";
 import cx from "classnames";
 import { ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
 
@@ -11,6 +11,8 @@ import Aside from "@/components/Aside";
 import { isset } from "@/lib/utils";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+
+import ContentRenderer from "@prss/ui/build/ContentRenderer";
 
 const Docs = data => {
   PRSS.init(data);
@@ -189,7 +191,10 @@ const Docs = data => {
 
                   {/* Main Content */}
                   <div className="post-content prose dark:prose-invert max-w-none">
-                    <div className="col post-inner-content page__content" dangerouslySetInnerHTML={{ __html: content }} />
+                    <ContentRenderer 
+                      content={content}
+                      className="col post-inner-content page__content"
+                    />
                   </div>
 
                   {/* Footer Call to Action */}
