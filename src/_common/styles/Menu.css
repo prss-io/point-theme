@@ -65,3 +65,11 @@
   right: 15px;
   transition: 0.3s right ease-in-out;
 }
+.page .page-menu li ul {
+  display: none;
+}
+
+.page .page-menu li.active > ul {
+  display: block;
+  margin-left: 10px;
+}

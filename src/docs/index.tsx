@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import * as PRSS from "@prss/ui";
 import cx from "classnames";
 import { ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
@@ -6,8 +6,8 @@ import { ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Page from "@/components/Page";
-import Menu from "@/components/Menu";
 import Aside from "@/components/Aside";
+import { Menu } from "@prss/ui";
 import { isset } from "@/lib/utils";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -23,21 +23,36 @@ const Docs = data => {
     sidebarMenu,
     footerCta,
     warningHtml,
-    contentFooterHtml
+    contentFooterHtml,
+    heroTitle,
+    docsImageUrl
   } = PRSS.getProp("vars") as IVars;
 
   const { content, uuid: postId, title: postTitle } = PRSS.getProp("item");
   const sidebarHtml = PRSS.getProp("sidebarHtml");
   const items = PRSS.getItems("post").filter(item => item.uuid !== postId);
 
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  // Helper function to check if a node should be active (includes parent activation)
+  const isNodeActive = (node: any) => {
+    // Check if this node is the active item
+    if (node.key === postId) {
+      return true;
+    }
+    
+    // Check if this node contains the active item in its children
+    if (PRSS.hasItem(postId, node)) {
+      return true;
+    }
+    
+    return false;
+  };
 
   // Custom menu item renderer for documentation sidebar
   const renderDocMenuItem = (node: any) => {
     const post = PRSS.getItem(node.key);
     const nodeChildren = node?.children || [];
     const hasChildren = nodeChildren.length > 0;
-    const isActive = node.key === postId;
+    const isActive = isNodeActive(node);
     
     return (
       <li key={node.key} className={cx({ "active": isActive })}>
@@ -119,12 +134,18 @@ const Docs = data => {
             <div className="">
               <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                 <div className="flex-1">
-                  <h1 className="text-3xl md:text-4xl font-bold lg:text-5xl mb-0">{postTitle}</h1>
+                  {docsImageUrl ? (
+                    <img 
+                      src={docsImageUrl} 
+                      alt={heroTitle || postTitle}
+                      className="docs-image max-h-24 w-auto mb-0"
+                    />
+                  ) : (
+                    <h1 className="text-3xl md:text-4xl font-bold lg:text-5xl mb-0">{heroTitle || postTitle}</h1>
+                  )}
                 </div>
                 {PRSS.getProp("vars")?.asideHtml && (
-                  <div className="lg:w-1/3">
-                    <Aside name="asideHtml" />
-                  </div>
+                  <Aside name="asideHtml" />
                 )}
               </div>
             </div>
@@ -142,28 +163,28 @@ const Docs = data => {
             )}
 
             {/* Content Layout */}
-            <div className="flex flex-col lg:flex-row gap-8">
+            <div className="flex flex-col lg:flex-row">
               {/* Documentation Sidebar */}
               {isset(sidebarMenu) && (
-                <aside className="sidebar-menu w-full lg:w-1/4 shrink-0">
+                <aside className="sidebar-menu w-full min-w-[180px] lg:w-[180px] shrink-0">
                   {/* Mobile Menu Toggle */}
                   <div className="lg:hidden mb-4">
                     <Button 
                       variant="outline" 
                       className="flex w-full items-center justify-between"
-                      onClick={() => setShowMobileMenu(!showMobileMenu)}
+                      data-mobile-menu-toggle="docs-sidebar"
+                      data-mobile-menu-open="false"
                     >
                       <span>Documentation Menu</span>
-                      <ChevronDown className={cx("h-4 w-4 transition-transform", {
-                        "rotate-180": showMobileMenu
-                      })} />
+                      <ChevronDown className="mobile-menu-chevron h-4 w-4 transition-transform" />
                     </Button>
                   </div>
                   
                   {/* Sidebar Navigation */}
-                  <div className={cx("lg:sticky top-6 lg:block", {
-                    "hidden": !showMobileMenu && window.innerWidth < 1024
-                  })}>
+                  <div 
+                    className="lg:sticky top-6 lg:block hidden"
+                    data-mobile-menu="docs-sidebar"
+                  >
                     <nav className="rounded-lg overflow-hidden">
                       <div className="">
                         <Menu

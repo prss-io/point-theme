@@ -20,6 +20,7 @@ interface IVars {
     heroMessage?: string;
     heroImageUrl?: string;
     heroClass?: string;
+    docsImageUrl?: string;
 
     /**
      * Links
