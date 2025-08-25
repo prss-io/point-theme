@@ -1,6 +1,6 @@
 {
   "name": "@prss/point-theme",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Point Theme for PRSS",
   "main": "build/index.js",
   "scripts": {
