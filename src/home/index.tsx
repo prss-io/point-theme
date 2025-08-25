@@ -55,7 +55,10 @@ const Home = data => {
                       )}
 
                       {heroMessage && (
-                        <p className="hero__description">{heroMessage}</p>
+                        <ContentRenderer 
+                          content={heroMessage}
+                          className="hero__description"
+                        />
                       )}
 
                       {content ? (
